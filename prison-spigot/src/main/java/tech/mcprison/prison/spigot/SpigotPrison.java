@@ -65,7 +65,7 @@ public class SpigotPrison extends JavaPlugin {
     Field knownCommands;
     SpigotScheduler scheduler;
     Compatibility compatibility;
-    boolean debug = false;
+    boolean debug = true;
 
     private File dataDirectory;
     private boolean doAlertAboutConvert = false;
@@ -98,7 +98,7 @@ public class SpigotPrison extends JavaPlugin {
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
-        debug = getConfig().getBoolean("debug", false);
+        debug = getConfig().getBoolean("debug", true);
 
         initDataDir();
         initCommandMap();
