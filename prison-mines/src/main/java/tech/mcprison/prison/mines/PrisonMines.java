@@ -85,14 +85,14 @@ public class PrisonMines extends Module {
         PrisonAPI.getEventBus().register(new MinesListener());
 
         Prison.get().getCommandHandler().registerCommands(new MinesCommands());
-        //Prison.get().getCommandHandler().registerCommands(new PowertoolCommands());
+        Prison.get().getCommandHandler().registerCommands(new PowertoolCommands());
 
         ConversionManager.getInstance().registerConversionAgent(new MinesConversionAgent());
     }
 
-//    private void initGson() {
-//        gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
-//    }
+    private void initGson() {
+        gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
+    }
 
     private void initDb() {
         Optional<Database> dbOptional =
@@ -124,27 +124,27 @@ public class PrisonMines extends Module {
         	config = (MinesConfig) getJsonFileIO().readJsonFile( configFile, config );
         }
         
-//
-//        if (!configFile.exists()) {
-//            try {
-//                configFile.createNewFile();
-//                String json = gson.toJson(config);
-//                Files.write(configFile.toPath(), json.getBytes());
-//            } catch (IOException e) {
-//                errorManager.throwError(
-//                    new Error("Failed to create config").appendStackTrace("while creating", e));
-//                getStatus().toFailed("Failed to create config");
-//            }
-//        } else {
-//            try {
-//                String json = new String(Files.readAllBytes(configFile.toPath()));
-//                config = gson.fromJson(json, MinesConfig.class);
-//            } catch (IOException e) {
-//                errorManager.throwError(
-//                    new Error("Failed to load config").appendStackTrace("while loading", e));
-//                getStatus().toFailed("Failed to load config");
-//            }
-//        }
+
+        if (!configFile.exists()) {
+            try {
+                configFile.createNewFile();
+                String json = gson.toJson(config);
+                Files.write(configFile.toPath(), json.getBytes());
+            } catch (IOException e) {
+                errorManager.throwError(
+                    new Error("Failed to create config").appendStackTrace("while creating", e));
+                getStatus().toFailed("Failed to create config");
+            }
+        } else {
+            try {
+                String json = new String(Files.readAllBytes(configFile.toPath()));
+                config = gson.fromJson(json, MinesConfig.class);
+            } catch (IOException e) {
+                errorManager.throwError(
+                    new Error("Failed to load config").appendStackTrace("while loading", e));
+                getStatus().toFailed("Failed to load config");
+            }
+        }
     }
 
     private void initWorlds() {
@@ -174,7 +174,7 @@ public class PrisonMines extends Module {
      */
 	public void disable() {
 		
-//        mines.saveMines();
+        mines.saveMines();
     }
 
     public MinesConfig getConfig() {
